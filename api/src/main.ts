@@ -1,6 +1,6 @@
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { NestFactory, Reflector } from '@nestjs/core';
-import { TransformInterceptor } from './intercepter/transform.interceptor';
+import { TransformInterceptor } from './common/intercepters/transform.interceptor';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 

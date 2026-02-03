@@ -1,9 +1,9 @@
 import { MiddlewareConsumer, Module, NestModule, Type } from '@nestjs/common';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
-import { HttpExceptionFilter } from './filters/httpException.filter';
+import { HttpExceptionFilter } from './common/filters/httpException.filter';
 import { PrismaModule } from './common';
-import { RolesGuard } from './guards';
+import { RolesGuard } from './common/guards';
 import * as Modules from './core';
 import { ScheduleModule } from '@nestjs/schedule';
 import { BullModule } from '@nestjs/bull';

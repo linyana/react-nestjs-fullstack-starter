@@ -1,10 +1,10 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AuthService } from './service';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { Public, Payload } from 'src/decorators';
+import { Public, Payload } from 'src/common/decorators';
 import { LoginUserDto } from './dto/login';
 import { ILoginResponseType } from '@projectname/shared';
-import { IPayloadType } from 'src/decorators/types';
+import { IPayloadType } from 'src/common/decorators/types';
 
 @Controller('auth')
 export class AuthController {
