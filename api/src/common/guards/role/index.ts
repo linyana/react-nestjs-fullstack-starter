@@ -1,8 +1,9 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
-import { ROLE } from '@prisma/client';
-import { PrismaService } from 'src/common/prisma/prisma.service';
+import { IRoleType, ROLE } from '@projectname/shared';
+import { IPayloadType } from 'src/common/decorators/types';
+import { PrismaService } from 'src/common/services/prisma/service';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -13,7 +14,7 @@ export class RolesGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    let requiredRoles = this.reflector.getAllAndOverride<ROLE[]>('roles', [
+    let requiredRoles = this.reflector.getAllAndOverride<IRoleType[]>('roles', [
       context.getHandler(),
       context.getClass(),
     ]);
@@ -29,16 +30,16 @@ export class RolesGuard implements CanActivate {
     const token = request.headers.authorization?.replace('Bearer ', '');
     if (token) {
       if (!requiredRoles) {
-        requiredRoles = [ROLE.Owner, ROLE.Staff];
+        requiredRoles = ['Staff'];
       }
-      const decoded: any = this.jwtService.decode(token);
+      const decoded: IPayloadType = this.jwtService.decode(token);
       if (decoded?.userId) {
         const user = await this.prisma.users.findUnique({
           where: {
-            id: Number(decoded.userId),
+            id: BigInt(decoded.userId),
           },
         });
-        return user ? requiredRoles.includes(user.role) : false;
+        return user ? requiredRoles.includes('Staff') : false;
       }
     } else {
       return true;

@@ -2,13 +2,15 @@ import { MiddlewareConsumer, Module, NestModule, Type } from '@nestjs/common';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { HttpExceptionFilter } from './common/filters/httpException.filter';
-import { PrismaModule } from './common';
+import { PrismaModule, CacheModule } from './common';
 import { RolesGuard } from './common/guards';
-import * as Modules from './core';
 import { ScheduleModule } from '@nestjs/schedule';
 import { BullModule } from '@nestjs/bull';
 import { JwtAuthGuard } from './core/auth/guards';
 import { UtilModule } from './utils';
+import Redis from 'ioredis';
+
+import * as Modules from './core';
 
 const modules = Object.values(Modules) as Type<any>[];
 
@@ -16,6 +18,7 @@ const modules = Object.values(Modules) as Type<any>[];
   imports: [
     UtilModule,
     PrismaModule,
+    CacheModule,
     ScheduleModule.forRoot(),
     BullModule.forRoot({
       redis: {
@@ -38,6 +41,13 @@ const modules = Object.values(Modules) as Type<any>[];
     {
       provide: APP_GUARD,
       useClass: RolesGuard,
+    },
+    {
+      provide: 'REDIS_SUB_CLIENT',
+      useValue: new Redis({
+        host: process.env.REDIS_HOST,
+        port: 6379,
+      }),
     },
   ],
 })
