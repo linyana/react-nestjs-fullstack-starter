@@ -1,0 +1,16 @@
+reviews:
+  auto_review:
+    enabled: true
+    base_branches:
+      - main
+      - dev
+
+  review_status: true
+  summary: true
+  summary_focus: high_level
+  level: moderate
+  sequence_diagrams: true
+
+  file_patterns:
+    - '**/*.ts'
+    - '**/*.tsx'
