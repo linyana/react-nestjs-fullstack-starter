@@ -1,7 +1,7 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
-import { IRoleType } from '@projectname/shared';
+import { IRoleType, ROLE } from '@projectname/shared';
 import { IPayloadType } from 'src/common/decorators/types';
 import { PrismaService } from 'src/common/services/prisma/service';
 
@@ -30,7 +30,7 @@ export class RolesGuard implements CanActivate {
     const token = request.headers.authorization?.replace('Bearer ', '');
     if (token) {
       if (!requiredRoles) {
-        // requiredRoles = [ROLE.Staff];
+        requiredRoles = ['Staff'];
       }
       const decoded: IPayloadType = this.jwtService.decode(token);
       if (decoded?.userId) {
