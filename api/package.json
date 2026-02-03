@@ -15,15 +15,16 @@
     "prisma:generate": "prisma generate"
   },
   "dependencies": {
-    "@projectname/shared": "workspace:^",
     "@nestjs/bull": "^11.0.4",
     "@nestjs/common": "^11.1.12",
     "@nestjs/core": "^11.1.12",
     "@nestjs/jwt": "^11.0.2",
     "@nestjs/passport": "^11.0.5",
+    "@nestjs/platform-express": "^11.1.12",
     "@nestjs/schedule": "^6.1.0",
     "@nestjs/swagger": "^11.2.5",
     "@prisma/adapter-pg": "^7.3.0",
+    "@projectname/shared": "workspace:^",
     "axios": "^1.13.4",
     "bcryptjs": "^3.0.3",
     "bull": "^4.16.5",
