@@ -1,1 +1,1 @@
-export * from './rbac';
+export * from './permissions';

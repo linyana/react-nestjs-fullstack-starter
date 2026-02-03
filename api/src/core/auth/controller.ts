@@ -8,14 +8,18 @@ import { IPayloadType } from 'src/common/decorators/types';
 
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private authService: AuthService,
-  ) {}
+  constructor(private authService: AuthService) {}
 
   @Post('sessions')
   @Public()
   login(@Body() { email, password }: LoginUserDto): Promise<ILoginResponseType> {
     return this.authService.login(email, password);
+  }
+
+  @Post('sessions')
+  @Public()
+  adminLogin(@Body() { email, password }: LoginUserDto): Promise<ILoginResponseType> {
+    return this.authService.adminLogin(email, password);
   }
 
   @Get()
