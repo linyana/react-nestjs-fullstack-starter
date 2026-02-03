@@ -7,12 +7,6 @@ datasource db {
   provider = "postgresql"
 }
 
-enum ROLE {
-  Owner
-  Staff
-  Admin
-}
-
 model tenants {
   id           BigInt   @id @default(autoincrement())
   createdAt    DateTime @default(now()) @db.Timestamptz(6)
@@ -28,8 +22,17 @@ model users {
   name        String
   email       String    @unique() @db.VarChar(254)
   password    String
-  role        ROLE      @default(Staff)
   lastLoginAt DateTime?
   tenantId    BigInt
   tenant      tenants   @relation(fields: [tenantId], references: [id])
+}
+
+model adminUsers {
+  id          BigInt   @id @default(autoincrement())
+  createdAt   DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt   DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+  name        String
+  email       String   @unique() @db.VarChar(254)
+  password    String
+  lastLoginAt DateTime @default(now()) @db.Timestamptz(6)
 }
