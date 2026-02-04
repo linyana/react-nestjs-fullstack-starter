@@ -3,7 +3,7 @@ import { LAYOUT } from '@/config';
 
 import logo from '@/assets/logo/logo.svg';
 
-const { Title, Paragraph } = Typography;
+const { Title } = Typography;
 
 type IPropsType = {
   collapsed: boolean;
@@ -22,7 +22,7 @@ export const Banner = ({ collapsed }: IPropsType) => (
       src={logo}
       alt="logo"
       style={{
-        height: collapsed ? `calc(100% - ${LAYOUT.PADDING} - ${LAYOUT.PADDING})` : 48,
+        height: collapsed ? `calc(100% - ${LAYOUT.PADDING} - ${LAYOUT.PADDING})` : 32,
         flexShrink: 0,
         transition: 'height 0.2s ease, transform 0.2s ease',
       }}
@@ -54,14 +54,6 @@ export const Banner = ({ collapsed }: IPropsType) => (
         >
           ProjectName
         </Title>
-        <Paragraph
-          style={{
-            marginBottom: 0,
-            fontSize: 12,
-          }}
-        >
-          ProjectName
-        </Paragraph>
       </div>
     </div>
   </Flex>

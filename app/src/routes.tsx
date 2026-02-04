@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
-import { Dashboard, Login } from '@/pages';
+import { Dashboard, Login, Product } from '@/pages';
 import type { IRouteType } from '@/types';
-import { LayoutDashboard } from 'lucide-react';
+import { LayoutDashboard, Package, Settings } from 'lucide-react';
 
 const NotFound = () => {
   throw new Response('Not Found', {
@@ -37,6 +37,29 @@ export const routes: IRouteType[] = [
       menu: {
         label: 'Dashboard',
         icon: <LayoutDashboard size={18} />,
+      },
+    },
+  },
+  {
+    id: 'products',
+    path: '/products',
+    element: <Product />,
+    handle: {
+      menu: {
+        label: 'Product',
+        icon: <Package size={18} />,
+      },
+    },
+  },
+  {
+    id: 'settings',
+    path: '/settings',
+    element: <Product />,
+    handle: {
+      menu: {
+        position: 'BOTTOM',
+        label: 'Settings',
+        icon: <Settings size={18} />,
       },
     },
   },

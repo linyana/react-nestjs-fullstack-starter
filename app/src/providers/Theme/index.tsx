@@ -10,7 +10,7 @@ export const ThemeProvider = ({ children }: IPropsType) => (
       theme={{
         token: {
           colorPrimary: '#333333',
-          controlItemBgActive: '#e0e0e0',
+          controlItemBgActive: '#E6E6E6',
           fontFamily:
             "Inter, 'Noto Sans SC', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
         },
