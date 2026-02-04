@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@projectname/shared": "workspace:^",
+    "@projectname/shared": "workspace:*",
     "@ant-design/icons": "^6.1.0",
     "antd": "6.2.3",
     "axios": "^1.13.4",

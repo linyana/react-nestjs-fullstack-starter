@@ -30,7 +30,7 @@ export class RolesGuard implements CanActivate {
     const token = request.headers.authorization?.replace('Bearer ', '');
     if (token) {
       if (!requiredRoles) {
-        requiredRoles = ['Staff'];
+        requiredRoles = [ROLE.Staff];
       }
       const decoded: IPayloadType = this.jwtService.decode(token);
       if (decoded?.userId) {

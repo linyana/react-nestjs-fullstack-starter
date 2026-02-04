@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "turbo run dev --parallel",
+    "dev": "pnpm -r --parallel dev",
     "build": "turbo run build",
     "build:api": "turbo run build --filter=@projectname/api",
     "format": "prettier --write .",
