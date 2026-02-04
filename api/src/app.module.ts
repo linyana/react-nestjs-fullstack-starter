@@ -8,10 +8,10 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { BullModule } from '@nestjs/bull';
 import { JwtAuthGuard } from './core/auth/guards';
 import { UtilModule } from './utils';
+import { ConfigModule } from '@nestjs/config';
 import Redis from 'ioredis';
 
 import * as Modules from './core';
-import { ConfigModule } from '@nestjs/config';
 
 const modules = Object.values(Modules) as Type<any>[];
 
@@ -29,7 +29,6 @@ const modules = Object.values(Modules) as Type<any>[];
     }),
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env',
     }),
     ...modules,
   ],

@@ -1,9 +1,4 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import bcrypt from 'bcryptjs';
 import { PrismaService } from 'src/common/services/prisma/service';
@@ -29,7 +24,11 @@ export class AuthService {
       throw new UnauthorizedException('Invalid password');
     }
 
-    const accessToken = this.jwtService.sign({ userId: user.id.toString() });
+    const accessToken = this.jwtService.sign(
+      { userId: user.id.toString() },
+      { secret: process.env.JWT_SECRET_KEY, expiresIn: '3d' },
+    );
+
     const refreshToken = this.jwtService.sign(
       { userId: user.id.toString() },
       { secret: process.env.JWT_REFRESH_SECRET_KEY, expiresIn: '7d' },
