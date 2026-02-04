@@ -1,6 +1,6 @@
-FROM node:24.13.0-alpine3.23
+FROM node:24.13.0-alpine3.23 AS builder
 
-WORKDIR /data/website/xxx
+WORKDIR /data/website/app
 
 ENV PNPM_HOME=/root/.local/share/pnpm
 ENV PATH=$PNPM_HOME:$PATH
@@ -9,9 +9,9 @@ RUN npm install -g pnpm
 
 COPY . ./
 
-RUN pnpm install \
-  && npx prisma@4.15.0 generate --schema=api/prisma/schema.prisma \
+RUN pnpm install --filter @projectname/api \
+  && pnpm prisma:push \
   && pnpm build:api
 
-CMD pnpm prisma:push && node dist/api/index.js
+CMD node dist/api/index.js
 
