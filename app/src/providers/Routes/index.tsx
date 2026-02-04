@@ -7,6 +7,7 @@ import { useGlobal } from '@/hooks';
 import { hasAnyPermission } from '@/utils';
 import type { ILayoutType, IMenuPositionType, IRouteType } from '@/types';
 import type { IPermissionType } from '@projectname/shared';
+import { adminRoutes } from '@/Admin/routes';
 
 const normalizeRoutes = (
   routes: IRouteType[],
@@ -60,13 +61,13 @@ export const Routes = () => {
     });
   }, [permissions]);
 
-  // const finalAdminRoutes = useMemo(
-  //   () =>
-  //     normalizeRoutes(adminRoutes, {
-  //       permissions,
-  //     }),
-  //   [permissions],
-  // );
+  const finalAdminRoutes = useMemo(
+    () =>
+      normalizeRoutes(adminRoutes, {
+        permissions,
+      }),
+    [permissions],
+  );
 
   const router = useMemo(
     () =>
@@ -77,12 +78,12 @@ export const Routes = () => {
           children: finalRoutes as RouteObject[],
           errorElement: <RouteError />,
         },
-        // {
-        //   path: '/admin',
-        //   element: <LayoutProvider routes={finalAdminRoutes} />,
-        //   children: finalAdminRoutes as RouteObject[],
-        //   errorElement: <RouteError />,
-        // },
+        {
+          path: '/admin',
+          element: <LayoutProvider routes={finalAdminRoutes} />,
+          children: finalAdminRoutes as RouteObject[],
+          errorElement: <RouteError />,
+        },
       ]),
     [finalRoutes],
   );

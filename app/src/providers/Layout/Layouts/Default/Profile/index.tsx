@@ -1,12 +1,12 @@
 import { Avatar, Dropdown, Flex, Typography, Menu } from 'antd';
 import { EllipsisVertical, LogOutIcon, User } from 'lucide-react';
-import { useAdmin, useGlobal } from '@/hooks';
+import { useAuth, useGlobal } from '@/hooks';
 
 const { Text } = Typography;
 
 export const UserProfile = () => {
   const { user, collapsed } = useGlobal();
-  const { logout } = useAdmin();
+  const { logout } = useAuth();
 
   if (!user) return null;
 

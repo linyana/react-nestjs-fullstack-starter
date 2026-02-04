@@ -20,31 +20,45 @@ async function main() {
     });
   }
 
-  let user = await prisma.users.findUnique({
+  const user = await prisma.users.findUnique({
     where: { email: 'test@test.com' },
   });
 
   if (!user) {
-    user = await prisma.users.create({
+    await prisma.users.create({
       data: {
-        name: 'test',
+        name: 'Test User',
         email: 'test@test.com',
         password: passwordTest,
         tenantId: tenant.id,
       },
     });
+  } else {
+    await prisma.users.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        name: 'Test User',
+        email: 'test@test.com',
+        password: passwordTest,
+      },
+    });
   }
 
-  await prisma.users.upsert({
-    where: { email: 'test@test.com' },
-    update: {},
-    create: {
-      name: 'test',
-      email: 'test@test.com',
-      password: passwordTest,
-      tenantId: tenant.id,
-    },
+  const adminUser = await prisma.adminUsers.findUnique({
+    where: { email: 'admin@admin.com' },
   });
+
+  if (!adminUser) {
+    await prisma.adminUsers.create({
+      data: {
+        name: 'Admin User',
+        email: 'admin@admin.com',
+        password: passwordTest,
+      },
+    });
+  }
 
   console.log('Successfully init');
 }

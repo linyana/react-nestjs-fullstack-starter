@@ -1,4 +1,4 @@
-import type { IPermissionType } from '@projectname/shared';
+import type { IPermissionType, IRoleType } from '@projectname/shared';
 import type { RouteObject } from 'react-router-dom';
 
 export type ILayoutType = 'DEFAULT' | 'BLANK' | 'CENTERED' | 'BASIC';
@@ -17,6 +17,7 @@ export type IRouteType = Omit<RouteObject, 'children' | 'handle' | 'id'> & {
     layout?: ILayoutType;
     auth?: boolean;
     permissions?: IPermissionType[];
+    role?: IRoleType[]
   };
   children?: IRouteType[];
 };

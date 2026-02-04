@@ -17,7 +17,8 @@ export class RolesGuard implements CanActivate {
     let requiredRoles = this.reflector.getAllAndOverride<IRoleType[]>('roles', [
       context.getHandler(),
       context.getClass(),
-    ]);
+    ]) || [ROLE.Staff];
+
     const isPublic = this.reflector.getAllAndOverride<boolean>('isPublic', [
       context.getHandler(),
       context.getClass(),
@@ -28,22 +29,28 @@ export class RolesGuard implements CanActivate {
 
     const request = context.switchToHttp().getRequest();
     const token = request.headers.authorization?.replace('Bearer ', '');
-    if (token) {
-      if (!requiredRoles) {
-        requiredRoles = [ROLE.Staff];
-      }
-      const decoded: IPayloadType = this.jwtService.decode(token);
-      if (decoded?.userId) {
-        const user = await this.prisma.users.findUnique({
-          where: {
-            id: BigInt(decoded.userId),
-          },
-        });
-        return user ? requiredRoles.includes('Staff') : false;
-      }
-    } else {
-      return true;
+    if (!token) {
+      return false;
     }
-    return false;
+
+    const decoded: IPayloadType = this.jwtService.decode(token);
+
+    if (decoded?.adminUserId) {
+      const adminUser = await this.prisma.adminUsers.findUnique({
+        where: {
+          id: BigInt(decoded.adminUserId),
+        },
+      });
+      return adminUser ? requiredRoles.includes(ROLE.Admin) : false;
+    }
+
+    if (decoded?.userId) {
+      const user = await this.prisma.users.findUnique({
+        where: {
+          id: BigInt(decoded.userId),
+        },
+      });
+      return user ? requiredRoles.includes(ROLE.Staff) : false;
+    }
   }
 }

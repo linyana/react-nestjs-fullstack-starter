@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AuthService } from './service';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { Public, Payload } from 'src/common/decorators';
+import { Public, Payload, Roles } from 'src/common/decorators';
 import { LoginUserDto } from './dto/login';
 import { ILoginResponseType } from '@projectname/shared';
 import { IPayloadType } from 'src/common/decorators/types';
@@ -16,7 +16,7 @@ export class AuthController {
     return this.authService.login(email, password);
   }
 
-  @Post('sessions')
+  @Post('admin/sessions')
   @Public()
   adminLogin(@Body() { email, password }: LoginUserDto): Promise<ILoginResponseType> {
     return this.authService.adminLogin(email, password);
@@ -24,9 +24,14 @@ export class AuthController {
 
   @Get()
   @ApiBearerAuth()
-  async auth(@Payload('userId') userId: IPayloadType['userId']) {
+  @Roles('Admin', 'Staff')
+  async auth(
+    @Payload('userId') userId: IPayloadType['userId'],
+    @Payload('adminUserId') adminUserId: IPayloadType['adminUserId'],
+  ) {
     return this.authService.auth({
       userId,
+      adminUserId,
     });
   }
 }

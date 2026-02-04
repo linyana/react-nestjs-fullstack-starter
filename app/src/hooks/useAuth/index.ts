@@ -1,7 +1,7 @@
 import { useGlobal } from '../useGlobal';
 import { useMessage } from '../useMessage';
 
-export const useAdmin = () => {
+export const useAuth = () => {
   const { pathname } = window.location;
 
   const global = useGlobal();

@@ -2,7 +2,7 @@
 import { useRef, useState } from 'react';
 import axios, { type AxiosResponse } from 'axios';
 import { nanoid } from 'nanoid';
-import { useAdmin, useGlobal, useMessage } from '@/hooks';
+import { useAuth, useGlobal, useMessage } from '@/hooks';
 import type { IHttpGenerics, IHttpResponse, IUseHttpProps, UseHttpState } from './types';
 
 const handleHttpError = (
@@ -68,7 +68,7 @@ export const useHttp = <T extends IHttpGenerics = IHttpGenerics>({
   type IResponseType = T['response'];
 
   const { apiBaseUrl } = useGlobal();
-  const { token } = useAdmin();
+  const { token } = useAuth();
   const message = useMessage();
 
   // default message config
