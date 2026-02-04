@@ -33,7 +33,6 @@ pnpm-lock.yaml
 
 # docker 
 Dockerfile
-docker-compose.yaml
 
 #prisma
 generated

@@ -30,14 +30,15 @@ services:
     ports:
       - '6379:6379'
 
-  nest_api:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-    env_file: ./apps/api/.env
-    restart: always
-    ports:
-      - 3000:3000
+  # for build
+  # nest_api:
+  #   build:
+  #     context: .
+  #     dockerfile: ./Dockerfile
+  #   env_file: ./apps/api/.env
+  #   restart: always
+  #   ports:
+  #     - 3000:3000
 
 volumes:
   postgres_data:
