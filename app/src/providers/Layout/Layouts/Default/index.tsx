@@ -1,13 +1,13 @@
 import { Flex, Layout, theme } from 'antd';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { LAYOUT } from '@/config';
 import type { IRouteType } from '@/types';
 import { Banner } from '../../Banner';
-import { LayoutBottomMenu, LayoutMenu } from '../../Menu';
 import { Header } from '../../Header';
 import { Footer } from '../../Footer';
 import { useGlobal, useMobile } from '@/hooks';
 import { UserProfile } from './Profile';
+import { LayoutRouteMenu } from '../../Menu';
 
 type IPropsType = {
   children: React.ReactNode;
@@ -16,6 +16,7 @@ type IPropsType = {
 
 export const DefaultLayout = ({ routes, children }: IPropsType) => {
   const isMobile = useMobile();
+  const [isInit, setIsInit] = useState<boolean>(true);
   const {
     token: { colorBorderSecondary },
   } = theme.useToken();
@@ -23,9 +24,12 @@ export const DefaultLayout = ({ routes, children }: IPropsType) => {
 
   const border = `1px solid ${colorBorderSecondary}`;
   useEffect(() => {
-    actions.set({
-      collapsed: isMobile,
-    });
+    if (!isInit) {
+      actions.set({
+        collapsed: isMobile,
+      });
+    }
+    setIsInit(false);
   }, [isMobile]);
 
   return (
@@ -38,7 +42,6 @@ export const DefaultLayout = ({ routes, children }: IPropsType) => {
           position: 'sticky',
           top: 0,
           insetInlineStart: 0,
-          borderRight: border,
           overflow: 'hidden',
           zIndex: 1000,
         }}
@@ -53,11 +56,12 @@ export const DefaultLayout = ({ routes, children }: IPropsType) => {
           <div
             style={{
               height: LAYOUT.HEADER_HEIGHT,
-              borderBottom: border,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               flexShrink: 0,
+              borderBottom: border,
+              borderRight: border,
             }}
           >
             <Banner />
@@ -69,9 +73,16 @@ export const DefaultLayout = ({ routes, children }: IPropsType) => {
               scrollbarWidth: 'thin',
             }}
           >
-            <LayoutMenu routes={routes} />
+            <LayoutRouteMenu position="TOP" routes={routes} />
           </div>
-          <LayoutBottomMenu routes={routes} />
+          <div
+            style={{
+              borderTop: border,
+              borderBottom: border,
+            }}
+          >
+            <LayoutRouteMenu position="BOTTOM" routes={routes} />
+          </div>
           <UserProfile />
         </Flex>
       </Layout.Sider>

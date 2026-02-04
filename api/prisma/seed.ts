@@ -33,17 +33,6 @@ async function main() {
         tenantId: tenant.id,
       },
     });
-  } else {
-    await prisma.users.update({
-      where: {
-        id: user.id,
-      },
-      data: {
-        name: 'Test User',
-        email: 'test@test.com',
-        password: passwordTest,
-      },
-    });
   }
 
   const adminUser = await prisma.adminUsers.findUnique({

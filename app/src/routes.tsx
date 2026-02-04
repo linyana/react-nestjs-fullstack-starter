@@ -2,6 +2,7 @@ import { Navigate } from 'react-router-dom';
 import { Dashboard, Login, Product, Settings as SettingPage } from '@/pages';
 import type { IRouteType } from '@/types';
 import { LayoutDashboard, Package, Settings } from 'lucide-react';
+import { nanoid } from 'nanoid';
 
 const NotFound = () => {
   throw new Response('Not Found', {
