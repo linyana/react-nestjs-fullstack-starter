@@ -11,6 +11,7 @@ import { UtilModule } from './utils';
 import Redis from 'ioredis';
 
 import * as Modules from './core';
+import { ConfigModule } from '@nestjs/config';
 
 const modules = Object.values(Modules) as Type<any>[];
 
@@ -25,6 +26,10 @@ const modules = Object.values(Modules) as Type<any>[];
         host: process.env.REDIS_HOST,
         port: 6379,
       },
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
     }),
     ...modules,
   ],
