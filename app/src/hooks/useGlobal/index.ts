@@ -8,6 +8,7 @@ const initData: IStateType = {
   adminToken: '',
   user: null,
   permissions: [],
+  collapsed: false,
 };
 
 export const useGlobal = create<IGlobalStateType>()(

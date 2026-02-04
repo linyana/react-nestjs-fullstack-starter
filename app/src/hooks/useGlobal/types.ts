@@ -5,6 +5,7 @@ export type IStateType = {
   adminToken: string;
   apiBaseUrl: string;
   permissions: IPermissionType[];
+  collapsed: boolean;
   user: {
     name: string;
     email: string;

@@ -1,12 +1,13 @@
 import { Flex, Layout, theme } from 'antd';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { LAYOUT } from '@/config';
 import type { IRouteType } from '@/types';
 import { Banner } from '../../Banner';
 import { LayoutBottomMenu, LayoutMenu } from '../../Menu';
 import { Header } from '../../Header';
 import { Footer } from '../../Footer';
-import { useMobile } from '@/hooks';
+import { useGlobal, useMobile } from '@/hooks';
+import { UserProfile } from './Profile';
 
 type IPropsType = {
   children: React.ReactNode;
@@ -18,12 +19,13 @@ export const DefaultLayout = ({ routes, children }: IPropsType) => {
   const {
     token: { colorBorderSecondary },
   } = theme.useToken();
-
-  const [collapsed, setCollapsed] = useState(false);
+  const { collapsed, actions } = useGlobal();
 
   const border = `1px solid ${colorBorderSecondary}`;
   useEffect(() => {
-    setCollapsed(isMobile);
+    actions.set({
+      collapsed: isMobile,
+    });
   }, [isMobile]);
 
   return (
@@ -58,7 +60,7 @@ export const DefaultLayout = ({ routes, children }: IPropsType) => {
               flexShrink: 0,
             }}
           >
-            <Banner collapsed={collapsed} />
+            <Banner />
           </div>
           <div
             style={{
@@ -70,6 +72,7 @@ export const DefaultLayout = ({ routes, children }: IPropsType) => {
             <LayoutMenu routes={routes} />
           </div>
           <LayoutBottomMenu routes={routes} />
+          <UserProfile />
         </Flex>
       </Layout.Sider>
 
@@ -100,7 +103,7 @@ export const DefaultLayout = ({ routes, children }: IPropsType) => {
             }}
             align="center"
           >
-            <Header collapsed={collapsed} setCollapsed={setCollapsed} />
+            <Header />
           </Flex>
         </Layout.Header>
 
