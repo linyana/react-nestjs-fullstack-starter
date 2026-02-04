@@ -1,150 +1,72 @@
-import { Avatar, Dropdown, Divider, Space } from 'antd';
-import { LogOut, User } from 'lucide-react';
+import { Avatar, Dropdown, Flex, Typography, Button } from 'antd';
+import { LogOutIcon, User } from 'lucide-react';
 import { useAdmin, useGlobal } from '@/hooks';
+import { SettingOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
-const MenuItem: React.FC<{
-  icon: React.ReactNode;
-  label: string;
-  onClick: () => void;
-  danger?: boolean;
-}> = ({ icon, label, onClick, danger }) => (
-  <div
-    onClick={onClick}
-    style={{
-      display: 'flex',
-      alignItems: 'center',
-      gap: 10,
-      padding: '8px 12px',
-      borderRadius: 8,
-      cursor: 'pointer',
-      color: danger ? '#dc2626' : '#111827',
-      transition: 'background-color 0.2s',
-    }}
-    onMouseEnter={(e) => {
-      e.currentTarget.style.backgroundColor = '#f3f4f6';
-    }}
-    onMouseLeave={(e) => {
-      e.currentTarget.style.backgroundColor = 'transparent';
-    }}
-  >
-    {icon}
-    <span
-      style={{
-        fontSize: 14,
-        fontWeight: 500,
-      }}
-    >
-      {label}
-    </span>
-  </div>
-);
+const { Text } = Typography;
 
 export const HeaderUser = () => {
   const { user } = useGlobal();
+  const navigate = useNavigate();
   const { logout } = useAdmin();
 
-  if (!user?.name) return null;
-
-  const overlay = (
-    <div
-      style={{
-        borderRadius: 16,
-        border: '1px solid #e5e7eb',
-        background: '#fff',
-        padding: 16,
-        minWidth: 200,
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          gap: 12,
-          alignItems: 'center',
-          marginRight: 16,
-        }}
-      >
-        <div
-          style={{
-            position: 'relative',
-          }}
-        >
-          <Avatar size={56} icon={<User size={32} />} />
-          <span
-            style={{
-              position: 'absolute',
-              right: 2,
-              bottom: 2,
-              width: 10,
-              height: 10,
-              borderRadius: '50%',
-              background: '#22c55e',
-              border: '2px solid #fff',
-            }}
-          />
-        </div>
-
-        <div
-          style={{
-            flex: 1,
-          }}
-        >
-          <div
-            style={{
-              fontSize: 16,
-              fontWeight: 600,
-              color: '#111827',
-            }}
-          >
-            {user?.name || 'User'}
-          </div>
-          <div
-            style={{
-              fontSize: 12,
-              color: '#6b7280',
-            }}
-          >
-            {user?.email}
-          </div>
-        </div>
-      </div>
-
-      <Divider
-        style={{
-          margin: '12px 0',
-        }}
-      />
-
-      <MenuItem
-        icon={<LogOut size={18} />}
-        label="Logout"
-        danger
-        onClick={() => {
-          logout({
-            message: null,
-          });
-        }}
-      />
-    </div>
-  );
+  if (!user) return null;
 
   return (
-    <Dropdown trigger={['hover']} popupRender={() => overlay}>
-      <Space
-        style={{
-          cursor: 'pointer',
-          padding: '0 12px',
-          userSelect: 'none',
-        }}
-      >
-        <Avatar size="small" icon={<User size={16} />} />
-        <span
-          style={{
-            fontWeight: 500,
-          }}
-        >
-          {user?.name}
-        </span>
-      </Space>
+    <Dropdown
+      arrow
+      trigger={['click']}
+      menu={{
+        items: [
+          {
+            key: '1',
+            label: (
+              <Flex align="center" gap="8px">
+                <Avatar size={32} icon={<User size={16} />} />
+                <Flex vertical>
+                  <Text strong>{user?.name || 'User'}</Text>
+                  <Text type="secondary" style={{ fontSize: 12 }}>
+                    {user?.email}
+                  </Text>
+                </Flex>
+              </Flex>
+            ),
+            disabled: true,
+          },
+          {
+            type: 'divider',
+          },
+          {
+            key: '2',
+            label: 'Settings',
+            onClick: () => {
+              navigate('/settings');
+            },
+            icon: <SettingOutlined size={14} />,
+          },
+          {
+            key: '3',
+            danger: true,
+            label: 'Log out',
+            onClick: () => {
+              logout({
+                message: null,
+              });
+            },
+            icon: <LogOutIcon size={14} />,
+          },
+        ],
+      }}
+    >
+      <Button type="text" size="large">
+        <Flex align="center" gap="8px">
+          <Avatar size={24} icon={<User size={16} />} />
+          <Flex vertical>
+            <Text strong>{user?.name || 'User'}</Text>
+          </Flex>
+        </Flex>
+      </Button>
     </Dropdown>
   );
 };

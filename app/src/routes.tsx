@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { Dashboard, Login, Product } from '@/pages';
+import { Dashboard, Login, Product, Settings as SettingPage } from '@/pages';
 import type { IRouteType } from '@/types';
 import { LayoutDashboard, Package, Settings } from 'lucide-react';
 
@@ -54,7 +54,7 @@ export const routes: IRouteType[] = [
   {
     id: 'settings',
     path: '/settings',
-    element: <Product />,
+    element: <SettingPage />,
     handle: {
       menu: {
         position: 'BOTTOM',
