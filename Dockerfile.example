@@ -10,8 +10,9 @@ RUN npm install -g pnpm
 COPY . ./
 
 RUN pnpm install --filter @projectname/api \
+  && pnpm install --filter @projectname/shared \
   && pnpm prisma:push \
   && pnpm build:api
 
-CMD node dist/api/index.js
+CMD node api/dist/src/main.js
 

@@ -15,7 +15,6 @@
     "prisma:generate": "prisma generate"
   },
   "dependencies": {
-    "@projectname/shared": "workspace:*",
     "@nestjs/bull": "^11.0.4",
     "@nestjs/common": "^11.1.12",
     "@nestjs/core": "^11.1.12",
@@ -25,12 +24,15 @@
     "@nestjs/schedule": "^6.1.0",
     "@nestjs/swagger": "^11.2.5",
     "@prisma/adapter-pg": "^7.3.0",
+    "@prisma/client": "^7.3.0",
+    "@projectname/shared": "workspace:*",
     "axios": "^1.13.4",
     "bcryptjs": "^3.0.3",
     "bull": "^4.16.5",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.3",
     "dayjs": "^1.11.19",
+    "dotenv": "^17.2.3",
     "ioredis": "^5.9.2",
     "nanoid": "^5.1.6",
     "passport": "^0.7.0",
