@@ -5,6 +5,8 @@ change all `ProjectName` to `YourProjectName`
 
 # ProjectName
 
+![Snipaste_2026-02-04_14-07-12.png](https://s2.loli.net/2026/02/04/uIe3QOlHAwVnkYh.png)
+
 ProjectName is a full-stack project solution built as a monorepo using [Turborepo](https://turbo.build/) and [pnpm workspaces](https://pnpm.io/workspaces). It features a modern React-based frontend and a robust NestJS backend.
 
 ## 🚀 Tech Stack
