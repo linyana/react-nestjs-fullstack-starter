@@ -2,13 +2,13 @@
   "name": "@projectname/shared",
   "version": "0.0.0",
   "private": true,
-  "main": "./index.ts",
-  "types": "./index.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "lint": "eslint . --max-warnings 0",
-    "type-check": "tsc --noEmit"
+    "build": "tsup src/index.ts --format esm"
   },
   "devDependencies": {
+    "tsup": "8.5.1",
     "typescript": "^5.9.3"
   }
 }
