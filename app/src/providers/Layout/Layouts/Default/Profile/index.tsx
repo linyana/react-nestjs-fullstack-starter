@@ -10,8 +10,6 @@ export const UserProfile = () => {
 
   if (!user) return null;
 
-  console.log(collapsed);
-
   return (
     <Dropdown
       arrow
