@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import type { IRouteType } from '@/types';
-import { useAdmin, useGlobal } from '@/hooks';
+import { useAuth as useAuthHook, useGlobal } from '@/hooks';
 import { useAuth } from '@/services';
 import { Layout } from '../Layout';
 import { ErrorPage } from '@/components';
@@ -13,7 +13,7 @@ export const AuthProvider: React.FC<{
 }> = ({ route, children }) => {
   const [status, setStatus] = useState<'waiting' | 'error' | 'complete'>('waiting');
   const { actions, user } = useGlobal();
-  const { logout, token, loginUrl, dashboardUrl } = useAdmin();
+  const { logout, token, loginUrl, dashboardUrl } = useAuthHook();
   const navigate = useNavigate();
   const needAuth = route?.handle?.auth;
 
@@ -56,7 +56,20 @@ export const AuthProvider: React.FC<{
   if (status === 'waiting' || (!token && needAuth) || (user && !needAuth))
     return (
       <Layout.Centered>
-        <Spin />
+        <Spin
+          size="large"
+          tip={
+            <div
+              style={{
+                marginTop: 16,
+              }}
+            >
+              Loading...
+            </div>
+          }
+        >
+          <div style={{ padding: 50 }} />
+        </Spin>
       </Layout.Centered>
     );
 

@@ -9,7 +9,7 @@ export const Payload = (key: keyof IPayloadType | undefined): ParameterDecorator
 
     if (key === undefined) return user;
     const value = user[key];
-    if (value == null) throw new BadRequestException(`Invalid payload key: ${key}`);
+    if (value == null) return undefined;
     return value;
   })();
 };

@@ -3,7 +3,7 @@ import { useNavigate, useRouteError } from 'react-router-dom';
 import React from 'react';
 import type { ResultStatusType } from 'antd/es/result';
 import { Layout } from '@/providers';
-import { useAdmin } from '@/hooks';
+import { useAuth } from '@/hooks';
 
 interface ErrorResultProps {
   status: ResultStatusType;
@@ -14,7 +14,7 @@ interface ErrorResultProps {
 
 export const Error: React.FC<ErrorResultProps> = ({ status, title, subTitle, extra }) => {
   const navigate = useNavigate();
-  const { logout, loginUrl } = useAdmin();
+  const { logout, loginUrl } = useAuth();
 
   return (
     <Layout.Centered>
@@ -50,7 +50,7 @@ export const Error: React.FC<ErrorResultProps> = ({ status, title, subTitle, ext
 
 export const ErrorPage = ({ status, errorMessage }: { status: number; errorMessage?: string }) => {
   const navigate = useNavigate();
-  const { logout, loginUrl } = useAdmin();
+  const { logout, loginUrl } = useAuth();
 
   switch (status) {
     case 401:

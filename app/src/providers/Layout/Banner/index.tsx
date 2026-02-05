@@ -2,12 +2,13 @@ import { Flex, Typography } from 'antd';
 import { LAYOUT } from '@/config';
 
 import logo from '@/assets/logo/logo.svg';
-import { useGlobal } from '@/hooks';
+import { useAuth, useGlobal } from '@/hooks';
 
 const { Title } = Typography;
 
 export const Banner = () => {
   const { collapsed } = useGlobal();
+  const { isAdmin } = useAuth()
 
   return (
     <Flex
@@ -52,7 +53,7 @@ export const Banner = () => {
               margin: 0,
             }}
           >
-            ProjectName
+            {isAdmin ? 'Admin Portal' : 'ProjectName'}
           </Title>
         </div>
       </div>

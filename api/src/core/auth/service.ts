@@ -52,28 +52,32 @@ export class AuthService {
   }
 
   async adminLogin(email: string, password: string) {
-    const user = await this.prisma.adminUsers.findFirst({
+    const adminUser = await this.prisma.adminUsers.findFirst({
       where: { email: { equals: email, mode: 'insensitive' } },
     });
 
-    if (!user) {
+    if (!adminUser) {
       throw new UnauthorizedException("Can't find this user, please try again.");
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(password, adminUser.password);
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid password');
     }
 
-    const accessToken = this.jwtService.sign({ userId: user.id.toString() });
+    const accessToken = this.jwtService.sign(
+      { adminUserId: adminUser.id.toString() },
+      { secret: process.env.JWT_SECRET_KEY, expiresIn: '3d' },
+    );
+
     const refreshToken = this.jwtService.sign(
-      { userId: user.id.toString() },
+      { adminUserId: adminUser.id.toString() },
       { secret: process.env.JWT_REFRESH_SECRET_KEY, expiresIn: '7d' },
     );
 
-    this.prisma.users
+    this.prisma.adminUsers
       .update({
-        where: { id: user.id },
+        where: { id: adminUser.id },
         data: { lastLoginAt: new Date() },
       })
       .catch(() => null);
@@ -82,14 +86,33 @@ export class AuthService {
       accessToken,
       refreshToken,
       user: {
-        name: user.name,
-        email: user.email,
+        name: adminUser.name,
+        email: adminUser.email,
       },
     };
   }
 
-  async auth(params: { userId: bigint }) {
-    const { userId } = params;
+  async auth(params: { userId: bigint; adminUserId: bigint }) {
+    const { userId, adminUserId } = params;
+
+    if (adminUserId) {
+      const adminUser = await this.prisma.adminUsers.findUnique({
+        where: {
+          id: adminUserId,
+        },
+      });
+
+      if (!adminUser) {
+        throw new NotFoundException('Admin user not found');
+      }
+
+      return {
+        user: {
+          name: adminUser.name,
+          email: adminUser.email,
+        },
+      };
+    }
 
     const user = await this.prisma.users.findUnique({
       where: {

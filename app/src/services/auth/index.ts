@@ -32,7 +32,7 @@ export const useAdminLogin = <
   params: IHttpType<T>,
 ) =>
   useHttp<T>({
-    url: '/users/admin/sessions',
+    url: '/auth/admin/sessions',
     method: 'post',
     ...params,
   });

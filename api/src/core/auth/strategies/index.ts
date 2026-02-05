@@ -1,5 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
+import { ROLE } from '@projectname/shared';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PrismaService } from 'src/common/services/prisma/service';
 
@@ -13,7 +14,22 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     } as any);
   }
 
-  async validate(payload: { userId: string }) {
+  async validate(payload: { userId: string; adminUserId: string }) {
+    if (payload.adminUserId) {
+      const adminUser = await this.prisma.users.findUnique({
+        where: { id: BigInt(payload.adminUserId) },
+      });
+
+      if (!adminUser) {
+        throw new UnauthorizedException("Can't find this user, please try again.");
+      }
+
+      return {
+        adminUserId: adminUser.id,
+        role: ROLE.Admin,
+      };
+    }
+
     const user = await this.prisma.users.findUnique({
       where: { id: BigInt(payload.userId) },
     });
@@ -24,6 +40,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
 
     return {
       userId: user.id,
+      role: ROLE.Staff,
     };
   }
 }

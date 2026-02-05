@@ -1,12 +1,12 @@
 import { Avatar, Dropdown, Flex, Typography, Menu } from 'antd';
 import { EllipsisVertical, LogOutIcon, User } from 'lucide-react';
-import { useAdmin, useGlobal } from '@/hooks';
+import { useAuth, useGlobal } from '@/hooks';
 
 const { Text } = Typography;
 
 export const UserProfile = () => {
   const { user, collapsed } = useGlobal();
-  const { logout } = useAdmin();
+  const { logout } = useAuth();
 
   if (!user) return null;
 
@@ -16,11 +16,12 @@ export const UserProfile = () => {
     <Dropdown
       arrow
       trigger={['click']}
-      placement="top"
+      placement={collapsed ? 'topLeft' : 'top'}
       menu={{
         items: [
           {
             key: '1',
+            title: 'Profile',
             label: (
               <Flex align="center" gap="8px">
                 <Avatar size={32} shape="square" icon={<User size={16} />} />
@@ -40,6 +41,7 @@ export const UserProfile = () => {
           {
             key: '3',
             danger: true,
+            title: 'Log out',
             label: 'Log out',
             onClick: () => {
               logout({
@@ -64,12 +66,13 @@ export const UserProfile = () => {
                   justify="center"
                   style={{
                     width: collapsed ? 32 : undefined,
-                    transform: collapsed ? 'translateX(-6px)' : undefined,
+                    transform: collapsed ? 'translateX(-8px) translateY(6px)' : undefined,
                   }}
                 >
                   <Avatar size={32} shape="square" icon={<User size={16} />} />
                 </Flex>
               ),
+              title: 'Profile',
               label: collapsed ? null : (
                 <Flex justify="space-between" align="center" gap="8px">
                   <Flex vertical>

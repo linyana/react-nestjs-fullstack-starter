@@ -1,26 +1,26 @@
 import { Button, Form, Input, Typography, Flex } from 'antd';
-import { useLogin } from '@/services';
+import { useAdminLogin } from '@/services';
 import { useNavigate } from 'react-router-dom';
 import { useAuth, useGlobal, useMobile } from '@/hooks';
 import type { ILoginRequestType } from '@projectname/shared';
 
 const { Title, Text } = Typography;
 
-export const Login = () => {
+export const AdminLogin = () => {
   const navigate = useNavigate();
   const { actions } = useGlobal();
-  const mobile = useMobile();
   const { dashboardUrl } = useAuth();
+  const mobile = useMobile();
 
   const [form] = Form.useForm();
 
-  const { fetchData, loading } = useLogin({
+  const { fetchData, loading } = useAdminLogin({
     showLoading: true,
     success: {
       message: null,
       action: ({ data }) => {
         if (data) {
-          actions.set({ token: data.accessToken });
+          actions.set({ adminToken: data.accessToken });
           navigate(dashboardUrl);
         }
       },
