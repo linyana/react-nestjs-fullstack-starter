@@ -1,8 +1,3 @@
-# How to start
-
-change all `projectname` to `yourprojectname`
-change all `ProjectName` to `YourProjectName`
-
 # ProjectName
 
 ![Snipaste_2026-02-04_14-07-12.png](https://s2.loli.net/2026/02/04/uIe3QOlHAwVnkYh.png)
@@ -62,7 +57,13 @@ cd ProjectName
 pnpm install
 ```
 
-### 2. Environment Setup
+### 2. Init user project
+
+change all `projectname` to `yourprojectname`
+
+change all `ProjectName` to `YourProjectName`
+
+### 3. Environment Setup
 
 Configure environment variables for both applications.
 
@@ -72,7 +73,7 @@ Copy `api/.env.sample` to `api/.env` and update the values if necessary.
 **Frontend (@projectname/app):**
 Copy `app/.env.sample` to `app/.env` and update the values.
 
-### 3. Start Infrastructure
+### 4. Start Infrastructure
 
 Start PostgreSQL and Redis using Docker Compose:
 
@@ -80,7 +81,7 @@ Start PostgreSQL and Redis using Docker Compose:
 docker-compose up -d
 ```
 
-### 4. Database Setup
+### 5. Database Setup
 
 Initialize the database schema and seed data:
 
@@ -90,12 +91,9 @@ pnpm prisma:push
 
 # Seed database with initial data
 pnpm prisma:seed
-
-# Optional: Generate Prisma Client
-pnpm prisma:generate
 ```
 
-### 5. Running the Application
+### 6. Running the Application
 
 Start both Frontend and Backend in development mode:
 
@@ -113,13 +111,5 @@ This will run:
 
 - `pnpm dev`: Start all applications in development mode.
 - `pnpm build`: Build all applications.
-- `pnpm lint`: Run linting across all packages.
 - `pnpm format`: Format code using Prettier.
 
-## 🤝 Contributing
-
-1. Fork the repository.
-2. Create your feature branch (`git checkout -b feature/amazing-feature`).
-3. Commit your changes (`git commit -m 'Add some amazing feature'`).
-4. Push to the branch (`git push origin feature/amazing-feature`).
-5. Open a Pull Request.
