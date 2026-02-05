@@ -19,7 +19,7 @@ export const UserProfile = () => {
         items: [
           {
             key: '1',
-            title: 'Profile',
+            title: '',
             label: (
               <Flex align="center" gap="8px">
                 <Avatar size={32} shape="square" icon={<User size={16} />} />
@@ -39,7 +39,7 @@ export const UserProfile = () => {
           {
             key: '3',
             danger: true,
-            title: 'Log out',
+            title: '',
             label: 'Log out',
             onClick: () => {
               logout({
@@ -70,7 +70,7 @@ export const UserProfile = () => {
                   <Avatar size={32} shape="square" icon={<User size={16} />} />
                 </Flex>
               ),
-              title: 'Profile',
+              title: '',
               label: collapsed ? null : (
                 <Flex justify="space-between" align="center" gap="8px">
                   <Flex vertical>
