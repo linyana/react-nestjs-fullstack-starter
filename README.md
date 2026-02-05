@@ -26,7 +26,7 @@ ProjectName is a full-stack project solution built as a monorepo using [Turborep
 
 ### Shared (@projectname/shared)
 
-- Shared TypeScript types and utilities between frontend and backend.
+- Shared TypeScript types and constants between frontend and backend.
 
 ## 📂 Project Structure
 
@@ -41,7 +41,7 @@ ProjectName is a full-stack project solution built as a monorepo using [Turborep
 
 ## 🛠 Prerequisites
 
-- [Node.js](https://nodejs.org/) (>= 18.0.0 recommended)
+- [Node.js](https://nodejs.org/) (>= 22.0.0 recommended)
 - [pnpm](https://pnpm.io/) (Latest version)
 - [Docker](https://www.docker.com/) & Docker Compose
 
