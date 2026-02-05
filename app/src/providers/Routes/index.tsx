@@ -85,7 +85,7 @@ export const Routes = () => {
           errorElement: <RouteError />,
         },
       ]),
-    [finalRoutes],
+    [finalRoutes, finalAdminRoutes],
   );
 
   return <RouterProvider router={router} />;

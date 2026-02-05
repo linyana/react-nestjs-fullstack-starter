@@ -24,6 +24,7 @@
     "@nestjs/platform-express": "^11.1.12",
     "@nestjs/schedule": "^6.1.0",
     "@nestjs/swagger": "^11.2.5",
+    "prisma": "^7.3.0",
     "@prisma/adapter-pg": "^7.3.0",
     "@prisma/client": "^7.3.0",
     "@projectname/shared": "workspace:*",
@@ -37,7 +38,6 @@
     "nanoid": "^5.1.6",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
-    "prisma": "^7.3.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.2"
   },
