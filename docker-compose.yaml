@@ -21,8 +21,8 @@ services:
     ports:
       - '6432:6432'
     volumes:
-      - ./pgbouncer/pgbouncer.ini:/etc/pgbouncer/pgbouncer.ini
-      - ./pgbouncer/userlist.txt:/etc/pgbouncer/userlist.txt
+      - ./api/pgbouncer/pgbouncer.ini:/etc/pgbouncer/pgbouncer.ini
+      - ./api/pgbouncer/userlist.txt:/etc/pgbouncer/userlist.txt
 
   redis_dev:
     restart: always
