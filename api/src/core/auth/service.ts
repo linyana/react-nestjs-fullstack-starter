@@ -2,6 +2,7 @@ import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/co
 import { JwtService } from '@nestjs/jwt';
 import bcrypt from 'bcryptjs';
 import { PrismaService } from 'src/common/services/prisma/service';
+import { env } from 'src/utils';
 
 @Injectable()
 export class AuthService {
@@ -26,12 +27,12 @@ export class AuthService {
 
     const accessToken = this.jwtService.sign(
       { userId: user.id.toString() },
-      { secret: process.env.JWT_SECRET_KEY, expiresIn: '3d' },
+      { secret: env('JWT_SECRET_KEY'), expiresIn: '3d' },
     );
 
     const refreshToken = this.jwtService.sign(
       { userId: user.id.toString() },
-      { secret: process.env.JWT_REFRESH_SECRET_KEY, expiresIn: '7d' },
+      { secret: env('JWT_REFRESH_SECRET_KEY'), expiresIn: '7d' },
     );
 
     this.prisma.users
@@ -67,12 +68,12 @@ export class AuthService {
 
     const accessToken = this.jwtService.sign(
       { adminUserId: adminUser.id.toString() },
-      { secret: process.env.JWT_SECRET_KEY, expiresIn: '3d' },
+      { secret: env('JWT_SECRET_KEY'), expiresIn: '3d' },
     );
 
     const refreshToken = this.jwtService.sign(
       { adminUserId: adminUser.id.toString() },
-      { secret: process.env.JWT_REFRESH_SECRET_KEY, expiresIn: '7d' },
+      { secret: env('JWT_REFRESH_SECRET_KEY'), expiresIn: '7d' },
     );
 
     this.prisma.adminUsers

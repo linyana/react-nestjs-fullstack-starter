@@ -1,0 +1,9 @@
+export type IEnvType =
+  | 'DATABASE_URL'
+  | 'JWT_SECRET_KEY'
+  | 'JWT_REFRESH_SECRET_KEY'
+  | 'REDIS_HOST'
+  | 'NODE_ENV'
+  | 'BASE_URL'
+  | 'GORGIAS_CLIENT_ID'
+  | 'GORGIAS_CLIENT_SECRET';
