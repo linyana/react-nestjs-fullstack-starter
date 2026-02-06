@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/common/services/prisma/service';
+import { PrismaService } from '@/common';
 export const roundsOfHashing = 10;
 
 @Injectable()

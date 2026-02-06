@@ -7,7 +7,7 @@ import { RolesGuard } from './common/guards';
 import { ScheduleModule } from '@nestjs/schedule';
 import { BullModule } from '@nestjs/bull';
 import { JwtAuthGuard } from './core/auth/guards';
-import { UtilModule } from './utils';
+import { env, UtilModule } from './utils';
 import { ConfigModule } from '@nestjs/config';
 import Redis from 'ioredis';
 
@@ -23,7 +23,7 @@ const modules = Object.values(Modules) as Type<any>[];
     ScheduleModule.forRoot(),
     BullModule.forRoot({
       redis: {
-        host: process.env.REDIS_HOST,
+        host: env('REDIS_HOST'),
         port: 6379,
       },
     }),
@@ -49,7 +49,7 @@ const modules = Object.values(Modules) as Type<any>[];
     {
       provide: 'REDIS_SUB_CLIENT',
       useValue: new Redis({
-        host: process.env.REDIS_HOST,
+        host: env('REDIS_HOST'),
         port: 6379,
       }),
     },

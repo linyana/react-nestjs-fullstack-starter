@@ -12,6 +12,9 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "sourceMap": true,
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
   "include": ["src", "test", "prisma", "prisma.config.ts"]
 }
