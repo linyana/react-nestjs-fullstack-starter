@@ -5,5 +5,3 @@ export type IEnvType =
   | 'REDIS_HOST'
   | 'NODE_ENV'
   | 'BASE_URL'
-  | 'GORGIAS_CLIENT_ID'
-  | 'GORGIAS_CLIENT_SECRET';
