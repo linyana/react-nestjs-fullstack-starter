@@ -2,9 +2,8 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { randomBytes } from 'crypto';
 import { Response } from 'express';
 import axios from 'axios';
-import { PrismaService } from 'src/common/services/prisma/service';
-import { env } from 'src/utils';
-import { CacheService } from 'src/common';
+import { CacheService, PrismaService } from '@/common';
+import { env } from '@/utils';
 
 @Injectable()
 export class GorgiasService {

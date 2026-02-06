@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import Redis from 'ioredis';
-import { env } from 'src/utils';
+import { env } from '@/utils';
 
 @Injectable()
 export class CacheService {
@@ -17,25 +17,6 @@ export class CacheService {
     const min = 16 * 60 * 60;
     const max = 32 * 60 * 60;
     return Math.floor(Math.random() * (max - min) + min);
-  }
-
-  private stringifyWithBigInt(obj: any): string {
-    return JSON.stringify(obj, (_, val) => (typeof val === 'bigint' ? Number(val) : val));
-  }
-
-  private async get<T>(key: string, fallback: () => Promise<T>): Promise<T> {
-    const cached = await this.redis.get(key);
-    if (cached !== null) {
-      return JSON.parse(cached) as T;
-    }
-
-    const value = await fallback();
-    return value;
-  }
-
-  private async set<T>(key: string, value: T): Promise<void> {
-    const ttl = this.getRandomTTLSeconds();
-    await this.redis.set(key, this.stringifyWithBigInt(value), 'EX', ttl);
   }
 
   private async setData<T>(params: {

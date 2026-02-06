@@ -1,7 +1,7 @@
 import { BadRequestException, Controller, Get, Query, Res } from '@nestjs/common';
 import { GorgiasService } from './service';
 import { Response } from 'express';
-import { Public } from 'src/common/decorators';
+import { Public } from '@/common/decorators';
 
 @Controller('gorgias')
 export class GorgiasController {
