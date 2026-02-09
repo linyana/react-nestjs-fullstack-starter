@@ -1,4 +1,4 @@
-export type IEnvType =
+export type ENV_TYPE =
   | 'DATABASE_URL'
   | 'JWT_SECRET_KEY'
   | 'JWT_REFRESH_SECRET_KEY'

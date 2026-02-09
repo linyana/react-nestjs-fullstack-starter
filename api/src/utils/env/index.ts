@@ -1,5 +1,5 @@
-import { IEnvType } from "./types";
+import { ENV_TYPE } from "./types";
 
-export const env = (key: IEnvType): string | undefined => {
+export const getEnv = (key: ENV_TYPE): string | undefined => {
   return process.env[key];
 };

@@ -1,10 +1,10 @@
 import bcrypt from 'bcryptjs';
 import { PrismaClient } from './generated/client';
 import { PrismaPg } from '@prisma/adapter-pg';
-import { env } from '@/utils';
+import { getEnv } from '@/utils';
 import { ROLE } from '@projectname/shared';
 
-const adapter = new PrismaPg({ connectionString: env('DATABASE_URL') });
+const adapter = new PrismaPg({ connectionString: getEnv('DATABASE_URL') });
 const prisma = new PrismaClient({ adapter });
 
 const roundsOfHashing = 10;

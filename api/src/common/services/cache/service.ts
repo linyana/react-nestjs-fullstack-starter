@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import Redis from 'ioredis';
-import { env } from '@/utils';
+import { getEnv } from '@/utils';
 
 @Injectable()
 export class CacheService {
@@ -8,7 +8,7 @@ export class CacheService {
 
   constructor() {
     this.redis = new Redis({
-      host: env('REDIS_HOST'),
+      host: getEnv('REDIS_HOST'),
       port: 6379,
     });
   }
