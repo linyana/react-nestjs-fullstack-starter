@@ -25,6 +25,7 @@ export class AuthController {
     return this.authService.login({
       email,
       password,
+      isAdmin: true,
     });
   }
 
