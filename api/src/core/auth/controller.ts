@@ -13,25 +13,27 @@ export class AuthController {
   @Post('sessions')
   @Public()
   login(@Body() { email, password }: LoginUserDto): Promise<ILoginResponseType> {
-    return this.authService.login(email, password);
+    return this.authService.login({
+      email,
+      password,
+    });
   }
 
   @Post('admin/sessions')
   @Public()
   adminLogin(@Body() { email, password }: LoginUserDto): Promise<ILoginResponseType> {
-    return this.authService.adminLogin(email, password);
+    return this.authService.login({
+      email,
+      password,
+    });
   }
 
   @Get()
   @ApiBearerAuth()
   @Roles('Admin', 'Staff')
-  async auth(
-    @Payload('userId') userId: IPayloadType['userId'],
-    @Payload('adminUserId') adminUserId: IPayloadType['adminUserId'],
-  ) {
+  async auth(@Payload('userId') userId: IPayloadType['userId']) {
     return this.authService.auth({
       userId,
-      adminUserId,
     });
   }
 }

@@ -1,7 +1,6 @@
-import { IRoleType } from '@projectname/shared';
+import { ROLE_TYPE } from '@projectname/shared';
 
 export type IPayloadType = {
   userId: bigint;
-  adminUserId: bigint;
-  role: IRoleType;
+  role: ROLE_TYPE;
 };

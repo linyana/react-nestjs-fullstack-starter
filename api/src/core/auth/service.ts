@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import bcrypt from 'bcryptjs';
 import { PrismaService } from '@/common';
 import { env } from '@/utils';
+import { ROLE } from '@projectname/shared';
 
 @Injectable()
 export class AuthService {
@@ -11,9 +12,17 @@ export class AuthService {
     private prisma: PrismaService,
   ) {}
 
-  async login(email: string, password: string) {
+  async login(params: { email: string; password: string; isAdmin?: boolean }) {
+    const { email, password, isAdmin } = params;
+
     const user = await this.prisma.users.findFirst({
-      where: { email: { equals: email, mode: 'insensitive' } },
+      where: {
+        email: {
+          equals: email,
+          mode: 'insensitive',
+        },
+        role: isAdmin ? ROLE.Admin : ROLE.Staff,
+      },
     });
 
     if (!user) {
@@ -52,68 +61,8 @@ export class AuthService {
     };
   }
 
-  async adminLogin(email: string, password: string) {
-    const adminUser = await this.prisma.adminUsers.findFirst({
-      where: { email: { equals: email, mode: 'insensitive' } },
-    });
-
-    if (!adminUser) {
-      throw new UnauthorizedException("Can't find this user, please try again.");
-    }
-
-    const isPasswordValid = await bcrypt.compare(password, adminUser.password);
-    if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid password');
-    }
-
-    const accessToken = this.jwtService.sign(
-      { adminUserId: adminUser.id.toString() },
-      { secret: env('JWT_SECRET_KEY'), expiresIn: '3d' },
-    );
-
-    const refreshToken = this.jwtService.sign(
-      { adminUserId: adminUser.id.toString() },
-      { secret: env('JWT_REFRESH_SECRET_KEY'), expiresIn: '7d' },
-    );
-
-    this.prisma.adminUsers
-      .update({
-        where: { id: adminUser.id },
-        data: { lastLoginAt: new Date() },
-      })
-      .catch(() => null);
-
-    return {
-      accessToken,
-      refreshToken,
-      user: {
-        name: adminUser.name,
-        email: adminUser.email,
-      },
-    };
-  }
-
-  async auth(params: { userId: bigint; adminUserId: bigint }) {
-    const { userId, adminUserId } = params;
-
-    if (adminUserId) {
-      const adminUser = await this.prisma.adminUsers.findUnique({
-        where: {
-          id: adminUserId,
-        },
-      });
-
-      if (!adminUser) {
-        throw new NotFoundException('Admin user not found');
-      }
-
-      return {
-        user: {
-          name: adminUser.name,
-          email: adminUser.email,
-        },
-      };
-    }
+  async auth(params: { userId: bigint }) {
+    const { userId } = params;
 
     const user = await this.prisma.users.findUnique({
       where: {

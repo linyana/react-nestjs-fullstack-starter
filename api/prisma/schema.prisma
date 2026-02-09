@@ -19,20 +19,11 @@ model users {
   id          BigInt    @id @default(autoincrement())
   createdAt   DateTime  @default(now()) @db.Timestamptz(6)
   updatedAt   DateTime  @default(now()) @updatedAt @db.Timestamptz(6)
+  role        String
   name        String
   email       String    @unique() @db.VarChar(254)
   password    String
   lastLoginAt DateTime?
-  tenantId    BigInt
-  tenant      tenants   @relation(fields: [tenantId], references: [id])
-}
-
-model adminUsers {
-  id          BigInt   @id @default(autoincrement())
-  createdAt   DateTime @default(now()) @db.Timestamptz(6)
-  updatedAt   DateTime @default(now()) @updatedAt @db.Timestamptz(6)
-  name        String
-  email       String   @unique() @db.VarChar(254)
-  password    String
-  lastLoginAt DateTime @default(now()) @db.Timestamptz(6)
+  tenantId    BigInt?
+  tenant      tenants?  @relation(fields: [tenantId], references: [id])
 }

@@ -15,22 +15,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     } as any);
   }
 
-  async validate(payload: { userId: string; adminUserId: string }) {
-    if (payload.adminUserId) {
-      const adminUser = await this.prisma.users.findUnique({
-        where: { id: BigInt(payload.adminUserId) },
-      });
-
-      if (!adminUser) {
-        throw new UnauthorizedException("Can't find this user, please try again.");
-      }
-
-      return {
-        adminUserId: adminUser.id,
-        role: ROLE.Admin,
-      };
-    }
-
+  async validate(payload: { userId: string }) {
     const user = await this.prisma.users.findUnique({
       where: { id: BigInt(payload.userId) },
     });
@@ -41,7 +26,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
 
     return {
       userId: user.id,
-      role: ROLE.Staff,
+      role: user.role,
     };
   }
 }

@@ -1,12 +1,12 @@
-import type { IPermissionType } from '@projectname/shared';
+import type { PERMISSION_TYPE } from '@projectname/shared';
 
-export const selectPermission = (permission: IPermissionType) => permission;
-export const hasPermission = (currentPermission: IPermissionType, permission: IPermissionType) =>
+export const selectPermission = (permission: PERMISSION_TYPE) => permission;
+export const hasPermission = (currentPermission: PERMISSION_TYPE, permission: PERMISSION_TYPE) =>
   currentPermission === permission;
 
 export const hasAnyPermission = (
-  currentPermissions: IPermissionType[],
-  permissions: IPermissionType[] = [],
+  currentPermissions: PERMISSION_TYPE[],
+  permissions: PERMISSION_TYPE[] = [],
 ) => {
   if (!permissions?.length) return true;
   const currentPermissionTypes = new Set(currentPermissions);
@@ -14,8 +14,8 @@ export const hasAnyPermission = (
 };
 
 export const hasAllPermissions = (
-  currentPermissions: IPermissionType[],
-  permissions: IPermissionType[] = [],
+  currentPermissions: PERMISSION_TYPE[],
+  permissions: PERMISSION_TYPE[] = [],
 ) => {
   if (!permissions?.length) return true;
   const currentPermissionTypes = new Set(currentPermissions);

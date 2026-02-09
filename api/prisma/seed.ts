@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs';
 import { PrismaClient } from './generated/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { env } from '@/utils';
+import { ROLE } from '@projectname/shared';
 
 const adapter = new PrismaPg({ connectionString: env('DATABASE_URL') });
 const prisma = new PrismaClient({ adapter });
@@ -32,20 +33,22 @@ async function main() {
         email: 'test@test.com',
         password: passwordTest,
         tenantId: tenant.id,
+        role: ROLE.Staff,
       },
     });
   }
 
-  const adminUser = await prisma.adminUsers.findUnique({
+  const adminUser = await prisma.users.findUnique({
     where: { email: 'admin@admin.com' },
   });
 
   if (!adminUser) {
-    await prisma.adminUsers.create({
+    await prisma.users.create({
       data: {
         name: 'Admin User',
         email: 'admin@admin.com',
         password: passwordTest,
+        role: ROLE.Admin,
       },
     });
   }

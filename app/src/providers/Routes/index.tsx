@@ -6,13 +6,13 @@ import { RouteError } from '@/components';
 import { useGlobal } from '@/hooks';
 import { hasAnyPermission } from '@/utils';
 import type { ILayoutType, IMenuPositionType, IRouteType } from '@/types';
-import type { IPermissionType } from '@projectname/shared';
+import type { PERMISSION_TYPE } from '@projectname/shared';
 import { adminRoutes } from '@/Admin/routes';
 
 const normalizeRoutes = (
   routes: IRouteType[],
   params: {
-    permissions: IPermissionType[];
+    permissions: PERMISSION_TYPE[];
   },
 ): IRouteType[] => {
   const { permissions } = params;

@@ -1,3 +1,3 @@
 import { PERMISSION } from '../../constants';
 
-export type IPermissionType = (typeof PERMISSION)[keyof typeof PERMISSION];
+export type PERMISSION_TYPE = (typeof PERMISSION)[keyof typeof PERMISSION];
