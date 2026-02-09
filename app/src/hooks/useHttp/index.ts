@@ -31,7 +31,7 @@ const handleHttpError = (
 };
 
 const defaultPagination = {
-  total_count: 0,
+  totalCount: 0,
   offset: 0,
   limit: 0,
   current: 0,
@@ -157,7 +157,7 @@ export const useHttp = <T extends IHttpGenerics = IHttpGenerics>({
         data: responseData.data,
         response,
         pagination: responseData.meta?.pagination ?? {
-          total_count: 0,
+          totalCount: 0,
           offset: 0,
           limit: 0,
           current: 0,
