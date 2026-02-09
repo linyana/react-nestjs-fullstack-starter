@@ -2,7 +2,7 @@ import { MiddlewareConsumer, Module, NestModule, Type } from '@nestjs/common';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { HttpExceptionFilter } from './common/filters/httpException.filter';
-import { PrismaModule, CacheModule } from './common';
+import { PrismaModule, CacheModule, HttpModule } from './common';
 import { RolesGuard } from './common/guards';
 import { ScheduleModule } from '@nestjs/schedule';
 import { BullModule } from '@nestjs/bull';
@@ -20,6 +20,7 @@ const modules = Object.values(Modules) as Type<any>[];
     UtilModule,
     PrismaModule,
     CacheModule,
+    HttpModule,
     ScheduleModule.forRoot(),
     BullModule.forRoot({
       redis: {
