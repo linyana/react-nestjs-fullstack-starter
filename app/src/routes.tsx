@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
-import { Dashboard, Login, Product, Settings as SettingPage } from '@/pages';
+import { Dashboard, HelpCenter, Login, Product, Settings as SettingPage } from '@/pages';
 import type { IRouteType } from '@/types';
-import { LayoutDashboard, Package, Settings } from 'lucide-react';
+import { HelpCircle, LayoutDashboard, Package, Settings } from 'lucide-react';
 
 const NotFound = () => {
   throw new Response('Not Found', {
@@ -54,12 +54,34 @@ export const routes: IRouteType[] = [
   {
     id: 'settings',
     path: '/settings',
-    element: <SettingPage />,
     handle: {
       menu: {
-        position: 'BOTTOM',
         label: 'Settings',
         icon: <Settings size={18} />,
+      },
+    },
+    children: [
+      {
+        id: 'general',
+        path: 'general',
+        element: <SettingPage />,
+        handle: {
+          menu: {
+            label: 'General Settings',
+          },
+        },
+      },
+    ],
+  },
+  {
+    id: 'help',
+    path: 'help',
+    element: <HelpCenter />,
+    handle: {
+      menu: {
+        label: 'Help Center',
+        icon: <HelpCircle size={18} />,
+        position: 'BOTTOM',
       },
     },
   },
