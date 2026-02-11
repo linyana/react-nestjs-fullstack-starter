@@ -1,10 +1,11 @@
-import type { PERMISSION_TYPE } from '@projectname/shared';
+import type { PERMISSION_TYPE, ROLE_TYPE } from '@projectname/shared';
 
 export type IStateType = {
   token: string;
   adminToken: string;
   apiBaseUrl: string;
   permissions: PERMISSION_TYPE[];
+  role: ROLE_TYPE;
   collapsed: boolean;
   user: {
     name: string;

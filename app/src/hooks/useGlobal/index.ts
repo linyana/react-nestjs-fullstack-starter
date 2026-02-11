@@ -7,6 +7,7 @@ const initData: IStateType = {
   token: '',
   adminToken: '',
   user: null,
+  role: 'Staff',
   permissions: [],
   collapsed: false,
 };
