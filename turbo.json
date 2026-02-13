@@ -15,6 +15,7 @@
       "cache": false
     },
     "prisma:seed": {
+      "dependsOn": ["^build"],
       "cache": false
     }
   }
